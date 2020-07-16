@@ -116,9 +116,9 @@
     yargs "^8.0.2"
 
 "@kengoldfarb/semantic-release-config@^1":
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/@kengoldfarb/semantic-release-config/-/semantic-release-config-1.0.0.tgz#3cea661eb06d5257af844c7c525887f447d86dcb"
-  integrity sha512-UGXgR1xthe14vd7KoG8xwjepQrdpmRa6p+kexPg3QIrF7umTQktbcEf+3Bnhf7P7/EEO9bu8ljpuyLWntVu5iA==
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@kengoldfarb/semantic-release-config/-/semantic-release-config-1.0.1.tgz#68dfd12948375f092fd565e695c3b741aed87747"
+  integrity sha512-wvSY45OO4Hab9tSD+rYdB7soe4aVpjjDBllbul4fNiMHNyzGNBEKMBcoba1hEPi2z8lmF/O9TzaZV34n4OicbA==
   dependencies:
     "@semantic-release/changelog" "^5.0.0"
     "@semantic-release/git" "^9.0.0"
@@ -2208,9 +2208,9 @@ escape-string-regexp@1.0.5, escape-string-regexp@^1.0.5:
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
 eslint-config-kengoldfarb@^1:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-kengoldfarb/-/eslint-config-kengoldfarb-1.0.0.tgz#ae5f861acba23d347b70384933b28ee357c8165f"
-  integrity sha512-qDqOEQKGVUv0Gz7tMOk07TBF2kaIyBN8vX5V7qG81+UjtkPd5O1UBNmLxNf2d9NL6Ao/PmfEBI1OMZHno0FTUw==
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/eslint-config-kengoldfarb/-/eslint-config-kengoldfarb-1.1.2.tgz#354da7a49e6580da5b058ac54ea9934e6a5e15ca"
+  integrity sha512-FxguT8d4AcwDzPHgwzP5IF0KjKqIf9acr2VdhQYt2yho/eQw/cpyOe8fFWFC60eDts8jAarEQfUMxo5g69K6/g==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^2.22.0"
     "@typescript-eslint/parser" "^2.22.0"
@@ -2218,7 +2218,7 @@ eslint-config-kengoldfarb@^1:
     eslint-config-prettier "^6.7.0"
     eslint-plugin-import "2.20.0"
     eslint-plugin-jsx-a11y "6.1.2"
-    eslint-plugin-kengoldfarb "^1.0.0"
+    eslint-plugin-kengoldfarb "^1.1.2"
     eslint-plugin-prettier "^3.1.1"
     eslint-plugin-react "^7.16.0"
 
@@ -2277,10 +2277,10 @@ eslint-plugin-jsx-a11y@6.1.2:
     has "^1.0.3"
     jsx-ast-utils "^2.0.1"
 
-eslint-plugin-kengoldfarb@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-kengoldfarb/-/eslint-plugin-kengoldfarb-1.0.0.tgz#5e5ea4d8ad1fc0ab94f36a4da5621148f4fa5d6f"
-  integrity sha512-+l4B6ohEysoHLmY17ZNccSWcFPeSLPMeV9/zFWnlLtGya4PQLL1/1LZ2JuXhchGezTC2o0xRSqSXwbkjv5tPpA==
+eslint-plugin-kengoldfarb@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-kengoldfarb/-/eslint-plugin-kengoldfarb-1.1.2.tgz#0d027e5f06c0a4d4ba4b066052abce22db5623d3"
+  integrity sha512-AdIbZxA3faXENOQvv/FxIDHUyQyvgvynGp594I4f6taRIFosw2/TmT6UORnZcgoyMCpyuPStT/moGbT9eJBVlg==
   dependencies:
     pascal-case "^2.0.1"
 
