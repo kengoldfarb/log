@@ -1,3 +1,4 @@
+/* eslint-disable */
 // Adapted from https://github.com/debitoor/safe-json-stringify
 
 const hasProp = Object.prototype.hasOwnProperty

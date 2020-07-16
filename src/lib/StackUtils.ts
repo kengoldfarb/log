@@ -1,7 +1,10 @@
-/* eslint-disable @typescript-eslint/camelcase */
-
-// TODO better client detection
-const CLIENT = false
+/* eslint-disable no-param-reassign */
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable no-plusplus */
+/* eslint-disable consistent-return */
+/* eslint-disable prefer-destructuring */
+const isClient =
+	typeof window !== 'undefined' || typeof __webpack_require__ === 'function'
 
 const matchOperatorsRegex = /[|\\{}()[\]^$+*?.-]/g
 
@@ -15,7 +18,7 @@ function escapeStringRegexp(str: string) {
 
 const strNatives: string[] = []
 
-const natives: RegExp[] = CLIENT
+const natives: RegExp[] = isClient
 	? []
 	: strNatives.map((n) => new RegExp(`\\(${n}\\.js:\\d+:\\d+\\)$`))
 
@@ -29,12 +32,12 @@ natives.push(
 
 function setFile(result: IParsedLine, filename?: string, cwd?: string) {
 	if (filename) {
-		filename = filename.replace(/\\/g, '/')
-		if (cwd && filename.startsWith(`${cwd}/`)) {
-			filename = filename.slice(cwd.length + 1)
+		let parsedFilename = filename.replace(/\\/g, '/')
+		if (cwd && parsedFilename.startsWith(`${cwd}/`)) {
+			parsedFilename = parsedFilename.slice(cwd.length + 1)
 		}
 
-		result.file = filename
+		result.file = parsedFilename
 	}
 }
 
@@ -78,9 +81,9 @@ const re = new RegExp(
 
 const methodRe = /^(.*?) \[as (.*?)\]$/
 
-type CallSite = NodeJS.CallSite | false
+export type CallSite = NodeJS.CallSite | false
 
-interface IParsedLine {
+export interface IParsedLine {
 	file?: string
 	type?: string
 	isConstructor?: boolean
@@ -97,9 +100,11 @@ interface IParsedLine {
 
 /** Typescript adaptation of https://github.com/tapjs/stack-utils */
 export default class StackUtils {
-	private _wrapCallSite: false | ((site: CallSite) => CallSite) = false
-	private _internals: RegExp[] = []
-	private _cwd = ''
+	private wrapCallSite: false | ((site: CallSite) => CallSite) = false
+
+	private internals: RegExp[] = []
+
+	private cwd = ''
 
 	public constructor(opts?: {
 		internals?: RegExp[]
@@ -120,20 +125,20 @@ export default class StackUtils {
 			opts.cwd = process.cwd()
 		}
 		if (opts.cwd) {
-			this._cwd = opts.cwd.replace(/\\/g, '/')
+			this.cwd = opts.cwd.replace(/\\/g, '/')
 		}
 
 		if (opts.internals) {
-			this._internals = this._internals.concat(opts.internals)
+			this.internals = this.internals.concat(opts.internals)
 		}
 
 		if (opts.ignoredPackages) {
-			this._internals = this._internals.concat(
+			this.internals = this.internals.concat(
 				ignoredPackagesRegExp(opts.ignoredPackages)
 			)
 		}
 
-		this._wrapCallSite = opts.wrapCallSite || false
+		this.wrapCallSite = opts.wrapCallSite || false
 	}
 
 	private static nodeInternals() {
@@ -162,7 +167,7 @@ export default class StackUtils {
 		stack.forEach((st) => {
 			st = st.replace(/\\/g, '/')
 
-			if (this._internals.some((internal) => internal.test(st))) {
+			if (this.internals.some((internal) => internal.test(st))) {
 				return
 			}
 
@@ -177,7 +182,7 @@ export default class StackUtils {
 				}
 			}
 
-			st = st.replace(`${this._cwd}/`, '')
+			st = st.replace(`${this.cwd}/`, '')
 
 			if (st) {
 				if (isAtLine) {
@@ -225,8 +230,8 @@ export default class StackUtils {
 
 		const { prepareStackTrace, stackTraceLimit } = Error
 		Error.prepareStackTrace = (obj, site) => {
-			if (this._wrapCallSite) {
-				return site.map(this._wrapCallSite)
+			if (this.wrapCallSite) {
+				return site.map(this.wrapCallSite)
 			}
 
 			return site
@@ -257,7 +262,7 @@ export default class StackUtils {
 			column: site.getColumnNumber()
 		}
 
-		setFile(res, site.getFileName(), this._cwd)
+		setFile(res, site.getFileName(), this.cwd)
 
 		if (site.isConstructor()) {
 			res.isConstructor = true
@@ -357,7 +362,7 @@ export default class StackUtils {
 			}
 		}
 
-		setFile(res, file, this._cwd)
+		setFile(res, file, this.cwd)
 
 		if (ctor) {
 			res.isConstructor = true

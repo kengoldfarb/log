@@ -1,7 +1,6 @@
 {
 	"debug.node.autoAttach": "off",
 	"git.ignoreLimitWarning": true,
-	"typescript.validate.enable": true,
 	"javascript.validate.enable": false,
 	"editor.formatOnSave": true,
 	"files.watcherExclude": {
@@ -39,9 +38,14 @@
 		"editor.formatOnSave": false
 	},
 	"eslint.options": {
-		"extensions": [".js", ".jsx", ".ts", ".tsx"]
+		"extensions": [
+			".js",
+			".jsx",
+			".ts",
+			".tsx"
+		]
 	},
-	"typescript.tsdk": "node_modules/typescript/lib",
+	// "typescript.tsdk": "node_modules/typescript/lib",
 	"typescript.preferences.importModuleSpecifier": "relative",
 	"editor.formatOnSaveTimeout": 5000,
 	"editor.codeActionsOnSaveTimeout": 5000,

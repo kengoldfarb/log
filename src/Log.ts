@@ -1,5 +1,3 @@
-/* eslint-disable prefer-rest-params */
-/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable @typescript-eslint/no-namespace */
 import jsonStringify from './lib/jsonStringify'
 import StackUtils from './lib/StackUtils'
@@ -7,20 +5,20 @@ import { TerminalColors } from './lib/terminal'
 import { LogLevel } from './logLevel'
 
 declare global {
+	// eslint-disable-next-line
 	const __webpack_require__: any | undefined
 
 	namespace NodeJS {
-		// eslint-disable-next-line
 		interface Global {
 			__webpack_require__: any | undefined
 		}
 	}
 }
 
-// TODO better client detection
-const CLIENT = false ///typeof window !== 'undefined' || typeof __webpack_require__ === 'function'
+const isClient =
+	typeof window !== 'undefined' || typeof __webpack_require__ === 'function'
 
-interface ILogOptions {
+export interface ILogOptions {
 	/** The log level */
 	level?: LogLevel
 	/** Whether to log using colors. Default true */
@@ -29,7 +27,7 @@ interface ILogOptions {
 	asJSON?: boolean
 	/** A custom adapter that will be called with log messages. If not set, console.log is used */
 	customAdapter?: LogAdapter
-	/** Whether to show file path / line numbers for all logs instead of just debug and trace. Enabling this will incur a slight performance penalty.*/
+	/** Whether to show file path / line numbers for all logs instead of just debug and trace. Enabling this will incur a slight performance penalty. */
 	showLineNumbersForAll?: boolean
 	/**
 	 * If this is a module, set the namespace so logs can be selectively turned on.
@@ -50,7 +48,7 @@ interface ILogOptions {
 	namespace?: string
 }
 
-interface ICaller {
+export interface ICaller {
 	stack?: string
 	fullFilePath?: string
 	relativeFilePath?: string
@@ -59,19 +57,36 @@ interface ICaller {
 /** Corresponds to the signature of console.log */
 export type LogAdapter = (message?: any, ...optionalParams: any[]) => void
 
+export interface ILevel {
+	i: number
+	hex: string
+	bgHex: string | null
+	terminalColor: TerminalColors
+}
+
 export class Log {
 	/** The tab size of an object when stringified */
 	private objectSpaceWidth = 4
+
 	private useColors = true
+
 	private asJSON = false
+
 	private showLineNumbersForAll = false
+
 	private level: LogLevel = LogLevel.Info
+
 	private customAdapter?: LogAdapter
+
 	private consoleAdapter!: LogAdapter
+
 	private namespace?: string
+
 	private stackUtils: StackUtils
 
-	private levels = {
+	private levels: {
+		[level: string]: ILevel
+	} = {
 		[LogLevel.Trace]: {
 			i: 0,
 			hex: '#404040',
@@ -124,7 +139,7 @@ export class Log {
 
 	public constructor(options?: ILogOptions) {
 		this.stackUtils = new StackUtils({
-			cwd: CLIENT ? '' : process.cwd()
+			cwd: isClient ? '' : process.cwd()
 		})
 		this.setConsoleAdapter()
 		this.setDefaultOptions()
@@ -132,76 +147,83 @@ export class Log {
 	}
 
 	/** Trace level logs the go beyond just normal debug messages. A silly log level. */
-	public trace(...args: any) {
-		return this.handleLog({
+	public trace(...args: any[]) {
+		this.handleLog({
 			level: LogLevel.Trace,
 			args
 		})
 	}
+
 	/** Debug messages used during development. */
-	public debug(...args: any) {
-		return this.handleLog({
+	public debug(...args: any[]) {
+		this.handleLog({
 			level: LogLevel.Debug,
 			args
 		})
 	}
+
 	/** Informational messages */
-	public info(...args: any) {
-		return this.handleLog({
+	public info(...args: any[]) {
+		this.handleLog({
 			level: LogLevel.Info,
 			args
 		})
 	}
+
 	/** Something bad might have happened and it should be invesigated, but we can continue. */
-	public warn(...args: any) {
-		return this.handleLog({
+	public warn(...args: any[]) {
+		this.handleLog({
 			level: LogLevel.Warn,
 			args
 		})
 	}
+
 	/** Something bad happened, but we can continue or recover. */
-	public error(...args: any) {
-		return this.handleLog({
+	public error(...args: any[]) {
+		this.handleLog({
 			level: LogLevel.Error,
 			args
 		})
 	}
+
 	/** Something critical happend that likely had unintended or fatal consequences */
-	public crit(...args: any) {
-		return this.handleLog({
+	public crit(...args: any[]) {
+		this.handleLog({
 			level: LogLevel.Crit,
 			args
 		})
 	}
+
 	/** Something happened and we must immediately stop */
-	public fatal(...args: any) {
-		return this.handleLog({
+	public fatal(...args: any[]) {
+		this.handleLog({
 			level: LogLevel.Fatal,
 			args
 		})
 	}
+
 	/** Really important information that is ALWAYS logged */
-	public superInfo(...args: any) {
-		return this.handleLog({
+	public superInfo(...args: any[]) {
+		this.handleLog({
 			level: LogLevel.SuperInfo,
 			args
 		})
 	}
 
 	/** Start a timer. Pass the response to timerEnd() to get the elapsed time */
-	public timerStart() {
+	public timerStart(): [number, number] {
 		return this.hrtime()
 	}
 
 	/** Returns the elapsed time in milliseconds */
-	public timerEnd(timeStart: [number, number]) {
+	public timerEnd(timeStart: [number, number]): number {
 		const elapsedHrTime = this.hrtime(timeStart)
 		const elapsedTimeInMs = elapsedHrTime[0] * 1000 + elapsedHrTime[1] / 1e6
 		return elapsedTimeInMs
 	}
 
 	/** Set logger options */
-	public setOptions(options?: ILogOptions) {
+	public setOptions(options?: ILogOptions): void {
 		if (!options) {
 			// Nothing to set
 			this.debugLog('setOptions() called without any options')
@@ -236,7 +258,7 @@ export class Log {
 	}
 
 	private getCaller(): ICaller {
-		const stack = new Error().stack
+		const { stack } = new Error()
 		const caller: ICaller = {
 			stack
 		}
@@ -245,10 +267,12 @@ export class Log {
 			if (lines && lines[4]) {
 				const matches = lines[4].match(/\((.*)\)/)
 				if (matches && matches[1]) {
+					// eslint-disable-next-line
 					caller.fullFilePath = matches[1]
 					if (typeof process !== 'undefined') {
 						caller.relativeFilePath = matches[1].replace(process.cwd(), '')
 					} else {
+						// eslint-disable-next-line
 						caller.relativeFilePath = matches[1]
 					}
 				}
@@ -259,7 +283,7 @@ export class Log {
 	}
 
 	/** Set the log level */
-	private setLevel(level: LogLevel) {
+	private setLevel(level: LogLevel | string) {
 		switch (level) {
 			case LogLevel.Trace:
 			case LogLevel.Debug:
@@ -299,15 +323,16 @@ export class Log {
 		/** Anything you want to log */
 		args: any[]
 		/** Force log ignoring this.level  */
-		force?: boolean
+		shouldForce?: boolean
 		/** Override the current namespace. Setting this will take precedent over this.namespace */
 		namespace?: string
 	}) {
-		const { level, args, force } = options
+		const { level, args, shouldForce } = options
+
 		const namespace = options.namespace ?? this.namespace
 
 		if (
-			force ||
+			shouldForce ||
 			(this.levels[level] && this.levels[level].i >= this.levels[this.level].i)
 		) {
 			const now = this.getDatetimeString()
@@ -342,7 +367,7 @@ export class Log {
 				const rawAboutStr = `${namespaceStr}(${level.toUpperCase()} | ${now}${callerStr}): `
 
 				if (args.length === 1 && typeof args[0] === 'string') {
-					const str = CLIENT
+					const str = isClient
 						? this.colorize({ str: `${rawAboutStr} ${args[0]}`, level })
 						: `${rawAboutStr} ${this.colorize({
 								str: args[0],
@@ -352,8 +377,8 @@ export class Log {
 				} else if (Array.isArray(args)) {
 					this.writeLog(rawAboutStr)
 					args.forEach((arg: any) => {
-						const addIndentation = typeof namespace !== 'undefined'
-						const str = this.anyToString(arg, addIndentation)
+						const shouldAddIndentation = typeof namespace !== 'undefined'
+						const str = this.anyToString(arg, shouldAddIndentation)
 						this.writeLog(this.colorize({ str, level }))
 					})
 				}
@@ -361,7 +386,7 @@ export class Log {
 		}
 	}
 
-	private anyToString(thing: any, addIndentation?: boolean): string {
+	private anyToString(thing: any, shouldAddIndentation?: boolean): string {
 		const thingType = typeof thing
 
 		if (thing instanceof Error) {
@@ -375,13 +400,12 @@ export class Log {
 				return 'undefined'
 			case 'string': {
 				let thingStr = thing
-				if (addIndentation) {
+				if (shouldAddIndentation) {
 					thingStr = `  ${thingStr}`
 				}
 				return thingStr
 			}
 			case 'number':
-			case 'bigint':
 			case 'boolean':
 				return thing.toString()
 			case 'symbol':
@@ -393,7 +417,7 @@ export class Log {
 					this.replaceErrors,
 					this.objectSpaceWidth
 				)
-				if (addIndentation) {
+				if (shouldAddIndentation) {
 					thingStr = thingStr.replace(/\n/g, '\n  ')
 					thingStr = `  ${thingStr}`
 				}
@@ -408,7 +432,7 @@ export class Log {
 			return str
 		}
 		let colorizedStr: string | string[] = str
-		if (CLIENT) {
+		if (isClient) {
 			let style = ''
 			if (this.levels[level].bgHex) {
 				style += `background: ${this.levels[level].bgHex};`
@@ -448,19 +472,19 @@ export class Log {
 		let monthStr = month.toString()
 
 		if (month < 10) {
-			monthStr = '0' + month
+			monthStr = `0${month}`
 		}
 		if (day < 10) {
-			dayStr = '0' + day
+			dayStr = `0${day}`
 		}
 		if (hour < 10) {
-			hourStr = '0' + hour
+			hourStr = `0${hour}`
 		}
 		if (minute < 10) {
-			minuteStr = '0' + minute
+			minuteStr = `0${minute}`
 		}
 		if (second < 10) {
-			secondStr = '0' + second
+			secondStr = `0${second}`
 		}
 		const millisecond = now.getMilliseconds()
 		const nowStr = `${year}-${monthStr}-${dayStr} ${hourStr}:${minuteStr}:${secondStr}:${millisecond}`
@@ -479,9 +503,11 @@ export class Log {
 	private setConsoleAdapter() {
 		let adapter = () => {}
 		if (typeof console !== 'undefined') {
-			if (CLIENT) {
+			if (isClient) {
+				// eslint-disable-next-line
 				adapter = console.log.bind(window.console)
 			} else {
+				// eslint-disable-next-line
 				adapter = console.log
 			}
 		}
@@ -493,12 +519,12 @@ export class Log {
 		if (value instanceof Error) {
 			const error: Record<string, any> = {}
 
-			Object.getOwnPropertyNames(value).forEach((key) => {
-				if (key === 'stack') {
-					error[key] = value.stack && value.stack.split('\n')
+			Object.getOwnPropertyNames(value).forEach((k) => {
+				if (k === 'stack') {
+					error[k] = value.stack && value.stack.split('\n')
 				} else {
 					// @ts-ignore
-					error[key] = value[key]
+					error[k] = value[k]
 				}
 			})
 
@@ -509,7 +535,7 @@ export class Log {
 	}
 
 	/** Logs a debug message about @kengoldfarb/log itself */
-	private debugLog(...args: any) {
+	private debugLog(...args: any[]) {
 		const namespace = '@kengoldfarb/log'
 		const debugStr = this.getDebugString()
 		const level = this.getDefaultLevelForNamespace(namespace, debugStr)
@@ -517,7 +543,7 @@ export class Log {
 		if (level && this.levels[level].i <= this.levels[LogLevel.Debug].i) {
 			this.handleLog({
 				level: LogLevel.Debug,
-				force: true,
+				shouldForce: true,
 				namespace,
 				args
 			})
@@ -539,7 +565,7 @@ export class Log {
 
 	private getDebugString() {
 		let debugStr = ''
-		if (CLIENT && typeof localStorage !== 'undefined') {
+		if (isClient && typeof localStorage !== 'undefined') {
 			// eslint-disable-next-line no-undef
 			const lsDebug = localStorage.getItem('debug')
 			if (lsDebug) {
@@ -552,7 +578,10 @@ export class Log {
 		return debugStr
 	}
 
-	private getDefaultLevelForNamespace(namespace: string, debugStr: string) {
+	private getDefaultLevelForNamespace(
+		namespace: string,
+		debugStr: string
+	): string | null {
 		if (namespace) {
 			// Set the namespace based on the package.json
 			const debugNamespaces = debugStr.split(',')
@@ -570,7 +599,7 @@ export class Log {
 			}
 		}
 
-		return
+		return null
 	}
 
 	private parseNamespace(ns: string) {

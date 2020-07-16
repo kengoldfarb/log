@@ -51,7 +51,7 @@ class LogLevelTests extends Base {
 	public async setNamespace(level: LogLevel, logLevel?: LogLevel) {
 		const message = faker.lorem.words()
 
-		const currentLogLevel = logLevel ? logLevel : LogLevel.Debug
+		const currentLogLevel = logLevel ?? LogLevel.Debug
 		log.setOptions({
 			level: currentLogLevel
 		})
@@ -76,11 +76,7 @@ class LogLevelTests extends Base {
 				assert.isTrue(messageRegexp.test(message))
 			}
 		})
-		console.log({
-			level,
-			logLevel,
-			shouldLog
-		})
+
 		log[level](message)
 		assert.equal(wasLogged, shouldLog)
 	}
@@ -103,6 +99,7 @@ class LogLevelTests extends Base {
 	}
 }
 
-describe('LogLevelTests', function Tests() {
+describe('LogLevelTests', function test() {
+	// eslint-disable-next-line no-new
 	new LogLevelTests()
 })

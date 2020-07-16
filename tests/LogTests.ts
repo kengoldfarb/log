@@ -75,6 +75,7 @@ class LoggingTests extends Base {
 	}
 }
 
-describe('LoggingTests', function Tests() {
+describe('LoggingTests', function test() {
+	// eslint-disable-next-line no-new
 	new LoggingTests()
 })
