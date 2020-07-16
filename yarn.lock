@@ -2186,10 +2186,10 @@ eslint-config-airbnb@^18.1.0:
     object.assign "^4.1.0"
     object.entries "^1.1.2"
 
-eslint-config-kengoldfarb@1.1.4-pre-ac1c7a5.0:
-  version "1.1.4-pre-ac1c7a5.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-kengoldfarb/-/eslint-config-kengoldfarb-1.1.4-pre-ac1c7a5.0.tgz#f53137e961b444430f0bd9bf3d4b7d3301629e52"
-  integrity sha512-ywu9KX4JJhp3XS8DSqKmh+K0eQmtBoyO8WcolEGOr1YgE/xmS/aN6nawKzlxm7YGsbPZ8f6mstpNuCTkNMG7KQ==
+eslint-config-kengoldfarb@1.1.4-pre-6a26393.0:
+  version "1.1.4-pre-6a26393.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-kengoldfarb/-/eslint-config-kengoldfarb-1.1.4-pre-6a26393.0.tgz#fd765204e13f94be51e0605ed5798c5271bdaacf"
+  integrity sha512-4PMrL8xpbKQM0zz+YnYzaNchWvjnrAOgBIXxqN+wITIXPh25WnUDC4LZTPDtZgWWgG+8rEJoCW4pF+s4B7ukcg==
   dependencies:
     "@typescript-eslint/eslint-plugin" "^3.1.0"
     "@typescript-eslint/parser" "^3.6.1"
@@ -2197,7 +2197,7 @@ eslint-config-kengoldfarb@1.1.4-pre-ac1c7a5.0:
     eslint-config-prettier "^6.11.0"
     eslint-plugin-import "^2.20.1"
     eslint-plugin-jsx-a11y "^6.3.1"
-    eslint-plugin-kengoldfarb "1.1.4-pre-ac1c7a5.0"
+    eslint-plugin-kengoldfarb "1.1.4-pre-6a26393.0"
     eslint-plugin-prettier "^3.1.4"
     eslint-plugin-react "^7.20.3"
     eslint-plugin-react-hooks "^4.0.8"
@@ -2262,10 +2262,10 @@ eslint-plugin-jsx-a11y@^6.3.1:
     jsx-ast-utils "^2.4.1"
     language-tags "^1.0.5"
 
-eslint-plugin-kengoldfarb@1.1.4-pre-ac1c7a5.0:
-  version "1.1.4-pre-ac1c7a5.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-kengoldfarb/-/eslint-plugin-kengoldfarb-1.1.4-pre-ac1c7a5.0.tgz#d231e49790d4b57b791a6605c35a2938fe8603cd"
-  integrity sha512-cNvlhjj3s44ZBVhbrY9cWXl493eqpW2MZhMqwj1Q1G0zGcFrX1gzUsY+Tc0o9fcX+nqu16GbhmU7dNGbidfYWQ==
+eslint-plugin-kengoldfarb@1.1.4-pre-6a26393.0:
+  version "1.1.4-pre-6a26393.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-kengoldfarb/-/eslint-plugin-kengoldfarb-1.1.4-pre-6a26393.0.tgz#671f08263b9729a97e1e6022985a71602519d79a"
+  integrity sha512-He0EZsTOqPgjbthWbk7JMREWs06qqWKa5kT+62yuilC7ZqoEH6Q6bg/w+HBYouDrnCsJSHg9zp7UruNrAg1Oig==
   dependencies:
     pascal-case "^3"
 
