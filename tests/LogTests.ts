@@ -15,20 +15,20 @@ class LoggingTests extends Base {
 	public async before() {
 		await super.before()
 		log.setOptions({
-			level: LogLevel.Debug,
+			level: LogLevel.Debug
 		})
 	}
 
 	public async useColors() {
 		let wasLogged = false
 		log.setOptions({
-			useColors: true,
+			useColors: true
 		})
 		log.setOptions({
 			customAdapter: (logMessage) => {
 				assert.isTrue(/\[32/.test(logMessage))
 				wasLogged = true
-			},
+			}
 		})
 		const message = faker.lorem.words()
 
@@ -38,7 +38,7 @@ class LoggingTests extends Base {
 
 	public async noColors() {
 		log.setOptions({
-			useColors: false,
+			useColors: false
 		})
 
 		let wasLogged = false
@@ -46,7 +46,7 @@ class LoggingTests extends Base {
 			customAdapter: (logMessage) => {
 				assert.isFalse(/\[32/.test(logMessage))
 				wasLogged = true
-			},
+			}
 		})
 		const message = faker.lorem.words()
 
@@ -56,7 +56,7 @@ class LoggingTests extends Base {
 
 	public async stringifyCircular() {
 		const a: Record<string, any> = {
-			b: null,
+			b: null
 		}
 		const b = { a }
 		a.b = b

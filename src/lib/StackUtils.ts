@@ -109,7 +109,7 @@ export default class StackUtils {
 	}) {
 		opts = {
 			ignoredPackages: [],
-			...opts,
+			...opts
 		}
 
 		if ('internals' in opts === false) {
@@ -254,7 +254,7 @@ export default class StackUtils {
 
 		const res: IParsedLine = {
 			line: site.getLineNumber(),
-			column: site.getColumnNumber(),
+			column: site.getColumnNumber()
 		}
 
 		setFile(res, site.getFileName(), this._cwd)
