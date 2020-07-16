@@ -1,7 +1,5 @@
 const semanticReleaseConfig = require('@kengoldfarb/semantic-release-config')
-
-const config = semanticReleaseConfig.default({
-	config: semanticReleaseConfig.ReleaseConfiguration.Package
-})
+	.default
+const config = semanticReleaseConfig()
 
 module.exports = config
