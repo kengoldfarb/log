@@ -503,7 +503,7 @@ export class Log {
 	private setConsoleAdapter() {
 		let adapter = () => {}
 		if (typeof console !== 'undefined') {
-			if (isClient) {
+			if (isClient && typeof window !== 'undefined') {
 				// eslint-disable-next-line
 				adapter = console.log.bind(window.console)
 			} else {
