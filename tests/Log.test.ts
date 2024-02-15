@@ -25,7 +25,7 @@ class LoggingTests extends Base {
 			useColors: true
 		})
 		log.setOptions({
-			customAdapter: (logMessage) => {
+			customAdapter: logMessage => {
 				assert.isTrue(/\[32/.test(logMessage))
 				wasLogged = true
 			}
@@ -43,7 +43,7 @@ class LoggingTests extends Base {
 
 		let wasLogged = false
 		log.setOptions({
-			customAdapter: (logMessage) => {
+			customAdapter: logMessage => {
 				assert.isFalse(/\[32/.test(logMessage))
 				wasLogged = true
 			}
