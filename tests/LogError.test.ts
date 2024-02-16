@@ -1,22 +1,14 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import { describe, it } from 'vitest'
 import log from '../index'
 import { LogLevel } from '../src/logLevel'
-import Base from './Base'
 
-class LogLevelTests extends Base {
-	public setup() {
-		it('Can log errors', () => this.logErrors())
-	}
-
-	public async logErrors() {
+describe('LogLevelTests', () => {
+	it('Can log errors', () => {
 		log.setOptions({
 			level: LogLevel.Trace
 		})
 
 		log.debug(new Error('MISSING_PARAMETERS'))
-	}
-}
-
-describe('LogLevelTests', function test() {
-	// eslint-disable-next-line no-new
-	new LogLevelTests()
+	})
 })

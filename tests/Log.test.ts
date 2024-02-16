@@ -1,25 +1,15 @@
-import { assert } from 'chai'
+/* eslint-disable import/no-extraneous-dependencies */
 import faker from 'faker'
-import log from '../index'
+import { describe, it, assert } from 'vitest'
+import log, { LogLevel } from '../index'
 import jsonStringify from '../src/lib/jsonStringify'
-import { LogLevel } from '../src/logLevel'
-import Base from './Base'
 
-class LoggingTests extends Base {
-	public setup() {
-		it('Uses colors', () => this.useColors())
-		it('Can have colors turned off', () => this.noColors())
-		it('Can stringify circular references', () => this.stringifyCircular())
-	}
+describe('LoggingTests', () => {
+	log.setOptions({
+		level: LogLevel.Debug
+	})
 
-	public async before() {
-		await super.before()
-		log.setOptions({
-			level: LogLevel.Debug
-		})
-	}
-
-	public async useColors() {
+	it('Uses colors', () => {
 		let wasLogged = false
 		log.setOptions({
 			useColors: true
@@ -34,9 +24,8 @@ class LoggingTests extends Base {
 
 		log.debug(message)
 		assert.isTrue(wasLogged)
-	}
-
-	public async noColors() {
+	})
+	it('Can have colors turned off', () => {
 		log.setOptions({
 			useColors: false
 		})
@@ -52,9 +41,8 @@ class LoggingTests extends Base {
 
 		log.debug(message)
 		assert.isTrue(wasLogged)
-	}
-
-	public async stringifyCircular() {
+	})
+	it('Can stringify circular references', () => {
 		const a: Record<string, any> = {
 			b: null
 		}
@@ -72,10 +60,5 @@ class LoggingTests extends Base {
 
 		jsonStringify(a)
 		assert.isTrue(true)
-	}
-}
-
-describe('LoggingTests', function test() {
-	// eslint-disable-next-line no-new
-	new LoggingTests()
+	})
 })

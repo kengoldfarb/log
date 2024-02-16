@@ -1,13 +1,11 @@
-import { assert } from 'chai'
+/* eslint-disable import/no-extraneous-dependencies */
 import faker from 'faker'
+import { describe, it, assert } from 'vitest'
 import log from '../index'
 import { LogLevel } from '../src/logLevel'
-import Base from './Base'
 
-class LogLevelTests extends Base {
-	private namespace!: string
-
-	private customLevels = {
+function setNamespace(level: LogLevel, logLevel?: LogLevel) {
+	const customLevels = {
 		levels: {
 			trace: 7,
 			debug: 6,
@@ -29,66 +27,56 @@ class LogLevelTests extends Base {
 			superInfo: 'cyan'
 		}
 	}
+	const message = faker.lorem.words()
 
-	public setup() {
-		it('Can set a namespace and log debug logs by default', () =>
-			this.setNamespace(LogLevel.Debug))
-		it('Can set a namespace and log debug', () =>
-			this.setNamespace(LogLevel.Debug, LogLevel.Debug))
-		it('Can set a namespace and log debug', () =>
-			this.setNamespace(LogLevel.Trace))
-		it('Logs namespaces properly', () => this.logNamespaces())
-	}
+	const currentLogLevel = logLevel ?? LogLevel.Debug
+	log.setOptions({
+		level: currentLogLevel
+	})
 
-	public async before() {
-		await super.before()
-		this.namespace = faker.name.firstName()
-		log.setOptions({
-			namespace: this.namespace
-		})
-	}
+	const shouldLog =
+		customLevels.levels[currentLogLevel] >= customLevels.levels[level]
 
-	public async setNamespace(level: LogLevel, logLevel?: LogLevel) {
-		const message = faker.lorem.words()
+	let wasLogged = false
 
-		const currentLogLevel = logLevel ?? LogLevel.Debug
-		log.setOptions({
-			level: currentLogLevel
-		})
-
-		const shouldLog =
-			this.customLevels.levels[currentLogLevel] >=
-			this.customLevels.levels[level]
-
-		let wasLogged = false
-
-		log.setOptions({
-			customAdapter: logMessage => {
-				wasLogged = true
-				if (!shouldLog) {
-					throw new Error(
-						`Level ${level} should not log for log level ${logLevel}`
-					)
-				}
-				const levelRegexp = new RegExp(level, 'i')
-				assert.isTrue(levelRegexp.test(logMessage))
-				const messageRegexp = new RegExp(message, 'i')
-				assert.isTrue(messageRegexp.test(message))
+	log.setOptions({
+		customAdapter: logMessage => {
+			wasLogged = true
+			if (!shouldLog) {
+				throw new Error(
+					`Level ${level} should not log for log level ${logLevel}`
+				)
 			}
-		})
+			const levelRegexp = new RegExp(level, 'i')
+			assert.isTrue(levelRegexp.test(logMessage))
+			const messageRegexp = new RegExp(message, 'i')
+			assert.isTrue(messageRegexp.test(message))
+		}
+	})
 
-		log[level](message)
-		assert.equal(wasLogged, shouldLog)
-	}
+	log[level](message)
+	assert.equal(wasLogged, shouldLog)
+}
 
-	public async logNamespaces() {
+describe('LogLevelTests', function test() {
+	const namespace = faker.name.firstName()
+	log.setOptions({
+		namespace
+	})
+
+	it('Can set a namespace and log debug logs by default', () =>
+		setNamespace(LogLevel.Debug))
+	it('Can set a namespace and log debug', () =>
+		setNamespace(LogLevel.Debug, LogLevel.Debug))
+	it('Can set a namespace and log debug', () => setNamespace(LogLevel.Trace))
+	it('Logs namespaces properly', () => {
 		const message = faker.lorem.words()
 
 		let hasNamespacePrefix = false
 
 		log.setOptions({
 			customAdapter: logMessage => {
-				if (logMessage.indexOf(`[${this.namespace}]`) > -1) {
+				if (logMessage.indexOf(`[${namespace}]`) > -1) {
 					hasNamespacePrefix = true
 				}
 			}
@@ -96,10 +84,5 @@ class LogLevelTests extends Base {
 
 		log.fatal(message)
 		assert.isTrue(hasNamespacePrefix)
-	}
-}
-
-describe('LogLevelTests', function test() {
-	// eslint-disable-next-line no-new
-	new LogLevelTests()
+	})
 })
