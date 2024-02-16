@@ -12,7 +12,7 @@ function safeGetValueFromPropertyOnObject(obj: any, property: any) {
 		try {
 			return obj[property]
 		} catch (err) {
-			return throwsMessage(err)
+			return throwsMessage(err as Error)
 		}
 	}
 
@@ -38,7 +38,7 @@ function ensureProperties(obj: any) {
 				seen.pop()
 				return fResult
 			} catch (err) {
-				return throwsMessage(err)
+				return throwsMessage(err as Error)
 			}
 		}
 
