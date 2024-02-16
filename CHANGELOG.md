@@ -1,3 +1,16 @@
+# [2.0.0](https://github.com/kengoldfarb/log/compare/v1.0.5...v2.0.0) (2024-02-16)
+
+
+### Breaking Changes
+
+* upgrade packages and build process ([97caf0d](https://github.com/kengoldfarb/log/commit/97caf0d))
+
+
+### Features
+
+* package and build process upgrades ([53fa38d](https://github.com/kengoldfarb/log/commit/53fa38d))
+* refactor tests to vitest ([85cd7a6](https://github.com/kengoldfarb/log/commit/85cd7a6))
+
 ## [1.0.5](https://github.com/kengoldfarb/log/compare/v1.0.4...v1.0.5) (2020-09-14)
 
 
