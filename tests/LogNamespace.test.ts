@@ -63,7 +63,7 @@ class LogLevelTests extends Base {
 		let wasLogged = false
 
 		log.setOptions({
-			customAdapter: (logMessage) => {
+			customAdapter: logMessage => {
 				wasLogged = true
 				if (!shouldLog) {
 					throw new Error(
@@ -87,7 +87,7 @@ class LogLevelTests extends Base {
 		let hasNamespacePrefix = false
 
 		log.setOptions({
-			customAdapter: (logMessage) => {
+			customAdapter: logMessage => {
 				if (logMessage.indexOf(`[${this.namespace}]`) > -1) {
 					hasNamespacePrefix = true
 				}

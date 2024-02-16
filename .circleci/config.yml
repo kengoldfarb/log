@@ -4,9 +4,9 @@ jobs:
     docker:
       - image: cimg/node:18.15
     steps:
-      # - add_ssh_keys:
-      #     fingerprints:
-      #       - "68:4b:af:b0:a6:5e:d6:59:a1:ee:bf:12:36:9d:7d:fc"
+      - add_ssh_keys:
+          fingerprints:
+            - "05:f0:05:8d:83:60:6f:f7:a9:84:65:97:a3:aa:53:4b"
       - checkout
       - run: yarn install --frozen-lockfile
       - run: yarn lint
@@ -15,9 +15,9 @@ jobs:
     docker:
       - image: cimg/node:18.15
     steps:
-      # - add_ssh_keys:
-      #     fingerprints:
-      #       - "68:4b:af:b0:a6:5e:d6:59:a1:ee:bf:12:36:9d:7d:fc"
+      - add_ssh_keys:
+          fingerprints:
+            - "05:f0:05:8d:83:60:6f:f7:a9:84:65:97:a3:aa:53:4b"
       - checkout
       - run:
           command: |

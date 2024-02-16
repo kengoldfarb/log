@@ -186,7 +186,7 @@ class LogLevelTests extends Base {
 		})
 
 		log.setOptions({
-			customAdapter: (logMessage) => {
+			customAdapter: logMessage => {
 				wasLogged = true
 				if (!shouldLog) {
 					throw new Error(

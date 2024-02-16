@@ -20,7 +20,7 @@ const strNatives: string[] = []
 
 const natives: RegExp[] = isClient
 	? []
-	: strNatives.map((n) => new RegExp(`\\(${n}\\.js:\\d+:\\d+\\)$`))
+	: strNatives.map(n => new RegExp(`\\(${n}\\.js:\\d+:\\d+\\)$`))
 
 natives.push(
 	// XXX are `bootstrap_node.js` and `node.js` needed in supported versions?
@@ -46,7 +46,7 @@ function ignoredPackagesRegExp(ignoredPackages: string[]): RegExp | never[] {
 		return []
 	}
 
-	const packages = ignoredPackages.map((mod) => escapeStringRegexp(mod))
+	const packages = ignoredPackages.map(mod => escapeStringRegexp(mod))
 
 	return new RegExp(
 		`[/\\\\]node_modules[/\\\\](?:${packages.join('|')})[/\\\\][^:]+:\\d+:\\d+`
@@ -164,10 +164,10 @@ export default class StackUtils {
 		let lastNonAtLine: string | null = null
 		const result: string[] = []
 
-		stack.forEach((st) => {
+		stack.forEach(st => {
 			st = st.replace(/\\/g, '/')
 
-			if (this.internals.some((internal) => internal.test(st))) {
+			if (this.internals.some(internal => internal.test(st))) {
 				return
 			}
 
@@ -199,7 +199,7 @@ export default class StackUtils {
 			}
 		})
 
-		return result.map((line) => `${indent}${line}\n`).join('')
+		return result.map(line => `${indent}${line}\n`).join('')
 	}
 
 	public captureString(limit?: number, fn = this.captureString) {
