@@ -372,7 +372,7 @@ export class Log {
 						: `${rawAboutStr} ${this.colorize({
 								str: args[0],
 								level
-						  })}`
+							})}`
 					this.writeLog(str)
 				} else if (Array.isArray(args)) {
 					this.writeLog(rawAboutStr)
@@ -519,7 +519,7 @@ export class Log {
 		if (value instanceof Error) {
 			const error: Record<string, any> = {}
 
-			Object.getOwnPropertyNames(value).forEach((k) => {
+			Object.getOwnPropertyNames(value).forEach(k => {
 				if (k === 'stack') {
 					error[k] = value.stack && value.stack.split('\n')
 				} else {

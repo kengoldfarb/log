@@ -1,6 +1,6 @@
 {
 	"compilerOptions": {
-		"module": "commonjs",
+		"module": "ESNext",
 		"esModuleInterop": true,
 		"target": "ES2017",
 		"lib": [
@@ -14,7 +14,7 @@
 		"strict": true,
 		"noUnusedLocals": true,
 		"resolveJsonModule": true,
-		"moduleResolution": "node",
+		"moduleResolution": "Bundler",
 		"sourceMap": true,
 		"outDir": "build",
 		"baseUrl": ".",
