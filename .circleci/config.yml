@@ -48,4 +48,4 @@ workflows:
                 - alpha
                 - qa
                 - dev
-                - /prerelease\/.*/
+                - /prerelease-.*/
