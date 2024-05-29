@@ -262,10 +262,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@kengoldfarb/semantic-release-config@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@kengoldfarb/semantic-release-config/-/semantic-release-config-1.2.0.tgz#cb4b523b23f6f510d9271906aae81e72c89bbe48"
-  integrity sha512-DZPb0ttGgqxoKNPr71nZiIuZF99ruW3CuM9hiNVNFQ4chnQ6MpUQ26Udf8zn54F7VqF23jl8HoNcLuIEJ9fGfA==
+"@kengoldfarb/semantic-release-config@^1.2.1":
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/@kengoldfarb/semantic-release-config/-/semantic-release-config-1.2.1.tgz#6394194308a73afe7dc6e526ac04bb8a202c659a"
+  integrity sha512-kO2+WgH3mQLMUTOGXEffnk1xZPldqrldVSpctfLJYNpQDvEAzvxE0a45zA+njHMCZSsQAdBWIS0RX8hkwWe1Ag==
   dependencies:
     "@semantic-release/changelog" "^6.0.1"
     "@semantic-release/git" "^10.0.1"
