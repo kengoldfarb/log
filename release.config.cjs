@@ -5,7 +5,6 @@ const config = semanticReleaseConfig.default({
 	branches: [
 		'master',
 		{ name: 'dev', channel: 'beta' },
-		...sharedPrereleaseBranches,
 		{ name: 'prerelease\/(.*)', prerelease: true },
 		{ name: 'prerelease-(.*)', prerelease: true }
 	]
