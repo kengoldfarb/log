@@ -1,3 +1,10 @@
+## [2.0.1](https://github.com/kengoldfarb/log/compare/v2.0.0...v2.0.1) (2024-05-29)
+
+
+### Bug Fixes
+
+* remove "main" from package.json ([c60fdad](https://github.com/kengoldfarb/log/commit/c60fdad))
+
 # [2.0.0](https://github.com/kengoldfarb/log/compare/v1.0.5...v2.0.0) (2024-02-16)
 
 
