@@ -7,9 +7,9 @@
     "build"
   ],
   "version": "2.0.0",
-  "main": "./build/index.js",
   "types": "./build/index.d.ts",
   "type": "module",
+  "main": "./build/index.cjs.js",
   "exports": {
     "import": "./build/index.esm.js",
     "require": "./build/index.cjs.js",
@@ -44,7 +44,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "@kengoldfarb/semantic-release-config": "^1.1.3",
+    "@kengoldfarb/semantic-release-config": "^1.2.2",
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-json": "^6.1.0",
     "@rollup/plugin-node-resolve": "^15.2.3",
