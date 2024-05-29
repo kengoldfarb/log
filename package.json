@@ -8,6 +8,8 @@
   ],
   "version": "1.0.5",
   "types": "./build/index.d.ts",
+  "type": "module",
+  "main": "./build/index.cjs.js",
   "exports": {
     "import": "./build/index.esm.js",
     "require": "./build/index.cjs.js",
