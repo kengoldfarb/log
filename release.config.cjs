@@ -1,7 +1,12 @@
 const semanticReleaseConfig = require('@kengoldfarb/semantic-release-config')
 
 const config = semanticReleaseConfig.default({
-	npmPublish: true
+	config: 'package',
+	branches: [
+		'master',
+		{ name: 'dev', channel: 'beta' },
+		{ name: 'prerelease-(.*)', prerelease: true }
+	]
 })
 
 module.exports = config
