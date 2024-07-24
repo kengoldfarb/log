@@ -15,8 +15,13 @@ declare global {
 	}
 }
 
-const isClient =
+let isClient =
 	typeof window !== 'undefined' || typeof __webpack_require__ === 'function'
+
+// Check for React Native and use terminal colors
+if (typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
+	isClient = false
+}
 
 export interface ILogOptions {
 	/** The log level */
