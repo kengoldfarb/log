@@ -1,3 +1,10 @@
+## [2.0.3](https://github.com/kengoldfarb/log/compare/v2.0.2...v2.0.3) (2024-07-24)
+
+
+### Bug Fixes
+
+* bad fix for react-native ([8b7210a](https://github.com/kengoldfarb/log/commit/8b7210a))
+
 ## [2.0.2](https://github.com/kengoldfarb/log/compare/v2.0.1...v2.0.2) (2024-07-24)
 
 
