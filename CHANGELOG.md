@@ -1,3 +1,10 @@
+## [2.0.2](https://github.com/kengoldfarb/log/compare/v2.0.1...v2.0.2) (2024-07-24)
+
+
+### Bug Fixes
+
+* detect react-native and fall back to terminal colors ([dab8cf2](https://github.com/kengoldfarb/log/commit/dab8cf2))
+
 ## [2.0.1](https://github.com/kengoldfarb/log/compare/v2.0.0...v2.0.1) (2024-05-29)
 
 
