@@ -15,13 +15,8 @@ declare global {
 	}
 }
 
-let isClient =
+const isClient =
 	typeof window !== 'undefined' || typeof __webpack_require__ === 'function'
-
-// Check for React Native and use terminal colors
-if (typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
-	isClient = false
-}
 
 export interface ILogOptions {
 	/** The log level */
@@ -437,7 +432,12 @@ export class Log {
 			return str
 		}
 		let colorizedStr: string | string[] = str
-		if (isClient) {
+
+		// Check for React Native and use terminal colors
+		const isReactNative =
+			typeof navigator !== 'undefined' && navigator.product === 'ReactNative'
+
+		if (isClient && !isReactNative) {
 			let style = ''
 			if (this.levels[level].bgHex) {
 				style += `background: ${this.levels[level].bgHex};`
