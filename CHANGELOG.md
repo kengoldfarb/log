@@ -1,3 +1,10 @@
+# [2.1.0](https://github.com/kengoldfarb/log/compare/v2.0.3...v2.1.0) (2025-01-15)
+
+
+### Features
+
+* upgrade packages; export types ([5381d02](https://github.com/kengoldfarb/log/commit/5381d02))
+
 ## [2.0.3](https://github.com/kengoldfarb/log/compare/v2.0.2...v2.0.3) (2024-07-24)
 
 
